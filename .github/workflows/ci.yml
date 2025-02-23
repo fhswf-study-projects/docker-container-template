@@ -19,13 +19,8 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: '.python-version'
-
-      - uses: actions/cache@v3
-        name: Define a cache for the virtual environment based on the dependencies lock file
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+          python-version: '3.9'
+          cache: 'poetry'
 
       - name: Install the project dependencies
         run: poetry install --with dev
@@ -47,13 +42,8 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: '.python-version'
-
-      - uses: actions/cache@v3
-        name: Define a cache for the virtual environment based on the dependencies lock file
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+          python-version: '3.9'
+          cache: 'poetry'
 
       - name: Install the project dependencies
         run: poetry install --with dev
