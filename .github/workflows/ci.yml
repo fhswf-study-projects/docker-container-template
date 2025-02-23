@@ -22,7 +22,7 @@ jobs:
         run: |
           python3 -m pip install --user pipx
           python3 -m pipx ensurepath
-          pipx install poetry
+          python3-m pipx install poetry
 
       - name: Install the project dependencies
         run: poetry install --with dev
