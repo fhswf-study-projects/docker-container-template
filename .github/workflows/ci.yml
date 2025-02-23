@@ -48,30 +48,30 @@ jobs:
         run: poetry run ruff format --check . # INFO
         continue-on-error: true
 
-  # unit_tests:
-  #   runs-on: self-hosted
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Install Python
-  #       uses: actions/setup-python@v5
+  unit_tests:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v5
 
-  #     - name: Load cached Poetry installation
-  #       id: cached-poetry
-  #       uses: actions/cache@v4
-  #       with:
-  #         path: ~/.local  # the path depends on the OS
-  #         key: poetry-0  # increment to reset cache
+      # - name: Load cached Poetry installation
+      #   id: cached-poetry
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ~/.local  # the path depends on the OS
+      #     key: poetry-0  # increment to reset cache
 
-  #     - name: Install Poetry
-  #       if: steps.cached-poetry.outputs.cache-hit != 'true'
-  #       uses: snok/install-poetry@v1
+      - name: Install Poetry
+        # if: steps.cached-poetry.outputs.cache-hit != 'true'
+        uses: snok/install-poetry@v1
 
-  #     - name: Load cached venv
-  #       id: cached-pip-wheels
-  #       uses: actions/cache@v4
-  #       with:
-  #         path: .venv
-  #         key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Load cached venv
+        id: cached-pip-wheels
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
   #     - name: Install dependencies
   #       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
