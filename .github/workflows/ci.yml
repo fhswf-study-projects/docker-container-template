@@ -24,9 +24,10 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
 
-      - name: Install Python Package
-        run: |
-          echo "$(pipx)"
+      - name: Get Python version
+        run: python --version
+      - name: Get pipx version
+        run: pipx --version
 
       - name: Install Poetry
         uses: abatilo/actions-poetry@v4
