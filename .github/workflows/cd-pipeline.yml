@@ -10,6 +10,8 @@ on:
     branches: [ "main" ]
 
 env:
+  # Use for multi-branch deployment
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
