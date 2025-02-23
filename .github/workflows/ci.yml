@@ -73,20 +73,20 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
-  #     - name: Install dependencies
-  #       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-  #       run: poetry install --no-interaction --no-root --with dev
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root --with dev
 
-  #     - name: Type checking
-  #       run: poetry run pyright .
+      - name: Type checking
+        run: poetry run pyright .
 
-  #     - name: Run automated tests
-  #       run: poetry run coverage run -m pytest tests -v -s
+      - name: Run automated tests
+        run: poetry run coverage run -m pytest tests -v -s
 
-  #     - name: Generate coverage report
-  #       run: |
-  #         poetry run coverage report -m
-  #         poetry run coverage xml
+      - name: Generate coverage report
+        run: |
+          poetry run coverage report -m
+          poetry run coverage xml
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v3
