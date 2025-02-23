@@ -18,13 +18,10 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
 
-      - name: Install pipx
+      - name: Install deps
         run: |
           python3 -m pip install --user pipx
           python3 -m pipx ensurepath
-
-      - name: Install poetry
-        run: |
           pipx install poetry
 
       - name: Install the project dependencies
