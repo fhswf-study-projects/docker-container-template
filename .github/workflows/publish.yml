@@ -1,4 +1,4 @@
-name: CD Pipeline
+name: Publish Container
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -6,10 +6,7 @@ name: CD Pipeline
 # documentation.
 
 on:
-  workflow_run:
-    workflows: [ "CI Pipeline" ]
-    types:
-      - completed
+  workflow_call:
 
 env:
   # Use for multi-branch deployment
@@ -22,7 +19,7 @@ env:
 
 jobs:
 
-  build:
+  build_and_push:
     runs-on: self-hosted
     permissions:
       contents: read
