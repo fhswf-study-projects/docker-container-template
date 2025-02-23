@@ -25,7 +25,9 @@ jobs:
         uses: actions/setup-python@v5
 
       - name: Install Python Package
-        run: pipx install poetry
+        run: |
+          python3 -m pip install --user pipx
+          python3 -m pipx ensurepath
 
       - name: Install Poetry
         uses: abatilo/actions-poetry@v4
