@@ -12,25 +12,14 @@ env:
 jobs:
 
   lint_formatting:
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [ "3.11" ]
-        poetry-version: [ "latest" ]
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Python
         uses: actions/setup-python@v5
-
-      - name: Get Python version
-        run: python --version
-      - name: Get pipx version
-        run: pipx --version
-
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v4
+        with:
+          python-version-file: '.python-version'
 
       - uses: actions/cache@v3
         name: Define a cache for the virtual environment based on the dependencies lock file
@@ -51,20 +40,14 @@ jobs:
 
 
   unit_tests:
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [ "3.11" ]
-        poetry-version: [ "latest" ]
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Python
-        uses: actions/setup-python@v4
-
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v4
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
 
       - uses: actions/cache@v3
         name: Define a cache for the virtual environment based on the dependencies lock file
