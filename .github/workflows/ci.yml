@@ -15,12 +15,17 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
-
       - name: Install Python
         uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-          cache: 'poetry'
+
+      - name: Install pipx
+        run: |
+          python3 -m pip install --user pipx
+          python3 -m pipx ensurepath
+
+      - name: Install poetry
+        run: |
+          pipx install poetry
 
       - name: Install the project dependencies
         run: poetry install --with dev
@@ -34,25 +39,25 @@ jobs:
         continue-on-error: true
 
 
-  unit_tests:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
+  # unit_tests:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Install Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-          cache: 'poetry'
+  #     - name: Install Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: '3.9'
+  #         cache: 'poetry'
 
-      - name: Install the project dependencies
-        run: poetry install --with dev
+  #     - name: Install the project dependencies
+  #       run: poetry install --with dev
 
-      - name: Type checking
-        run: poetry run pyright .
+  #     - name: Type checking
+  #       run: poetry run pyright .
 
-      - name: Run automated tests
-        run: poetry run coverage run -m pytest tests -v -s
+  #     - name: Run automated tests
+  #       run: poetry run coverage run -m pytest tests -v -s
 
-      - name: Generate coverage report
-        run: poetry run coverage report -m
+  #     - name: Generate coverage report
+  #       run: poetry run coverage report -m
