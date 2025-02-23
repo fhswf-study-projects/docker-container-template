@@ -24,8 +24,11 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
 
+      - name: Install Python Package
+        run: pipx install poetry
+
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v3
+        uses: abatilo/actions-poetry@v4
 
       - uses: actions/cache@v3
         name: Define a cache for the virtual environment based on the dependencies lock file
