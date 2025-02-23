@@ -26,8 +26,7 @@ jobs:
 
       - name: Install Python Package
         run: |
-          python3 -m pip install --user pipx
-          python3 -m pipx ensurepath
+          echo "$(pipx)"
 
       - name: Install Poetry
         uses: abatilo/actions-poetry@v4
