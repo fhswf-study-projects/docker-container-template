@@ -1,0 +1,38 @@
+name: Auto PR Creation
+
+on:
+  push:
+    branches:
+      - '**'  # Triggers on any branch push except main branches
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Determine target branch
+        id: branch
+        run: |
+          CURRENT_BRANCH=${{ github.ref_name }}
+          if [[ "$CURRENT_BRANCH" == "develop" ]]; then
+            echo "TARGET_BRANCH=staging" >> $GITHUB_ENV
+          elif [[ "$CURRENT_BRANCH" == "staging" ]]; then
+            echo "TARGET_BRANCH=main" >> $GITHUB_ENV
+          elif [[ "$CURRENT_BRANCH" == "main" ]]; then
+            echo "No PR needed for main branch." && exit 0
+          else
+            echo "TARGET_BRANCH=develop" >> $GITHUB_ENV
+          fi
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: ${{ env.TARGET_BRANCH }}
+          branch: ${{ github.ref_name }}
+          title: "Merge ${{ github.ref_name }} into ${{ env.TARGET_BRANCH }}"
+          body: "This PR was automatically created to merge changes from ${{ github.ref_name }} into ${{ env.TARGET_BRANCH }}."
+          labels: "auto-pr"
+          delete-branch: false
